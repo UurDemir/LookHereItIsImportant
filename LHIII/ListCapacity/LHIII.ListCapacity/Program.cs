@@ -26,8 +26,37 @@ namespace LHIII.ListCapacity
                 ArrayListHasCapacity();
                 DictionaryNoCapacity();
                 DictionaryHasCapacity();
+               // LinkedListNoCapacity();
 
             } while (Console.ReadKey().Key == ConsoleKey.R);
+        }
+
+        private static void LinkedListNoCapacity()
+        {
+            Console.WriteLine(new string('-', 50));
+            WriteLineWithColor("LinkedList No Capacity");
+            var allElapseds = new long[RepetitionsCount];
+            var timer = new Stopwatch();
+            LinkedList<string> noCapacityList;
+            for (var i = 0; i < RepetitionsCount; i++)
+            {
+                noCapacityList = new LinkedList<string>();
+
+                var values = Enumerable.Repeat(RandomHelper.GenerateString(10), Capacity).ToArray();
+
+                timer.Restart();
+                for (var j = 0; j < Capacity; j++)
+                {
+                    LinkedListNode<string> newNode = new LinkedListNode<string>(values[j]);
+                    noCapacityList.AddLast(newNode);
+                }
+                timer.Stop();
+                var elapsedTicks = timer.ElapsedTicks;
+                allElapseds[i] = elapsedTicks;
+                RepeatLog(i, elapsedTicks);
+            }
+            OverallLog(allElapseds);
+
         }
 
         private static void DictionaryNoCapacity()
